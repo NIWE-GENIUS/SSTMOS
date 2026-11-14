@@ -1,0 +1,12 @@
+'use strict';
+const express = require('express');
+const ctrl = require('../controllers/notificationController');
+const { authenticate } = require('../middleware/authenticate');
+const { requirePermission } = require('../middleware/authorize');
+const router = express.Router();
+router.use(authenticate);
+router.get('/', ctrl.list);
+router.post('/:id/read', ctrl.markRead);
+router.post('/announcements', requirePermission('announcement.manage'), ctrl.createAnnouncement);
+router.get('/announcements', ctrl.listAnnouncements);
+module.exports = router;

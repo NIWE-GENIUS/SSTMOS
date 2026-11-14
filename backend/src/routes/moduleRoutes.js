@@ -1,0 +1,16 @@
+'use strict';
+const express = require('express');
+const ctrl = require('../controllers/moduleController');
+const { authenticate } = require('../middleware/authenticate');
+const { requirePermission } = require('../middleware/authorize');
+const router = express.Router();
+router.use(authenticate);
+const P = requirePermission('module.manage');
+router.post('/', P, ctrl.create);
+router.get('/', P, ctrl.list);
+router.patch('/:id', P, ctrl.update);
+router.post('/assignments', P, ctrl.createAssignment);
+router.get('/assignments', P, ctrl.listAssignments);
+router.post('/:id/authorize-trainer', P, ctrl.authorizeTrainer);
+router.put('/:id/room-requirements', P, ctrl.setRoomRequirements);
+module.exports = router;

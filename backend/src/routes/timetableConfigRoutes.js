@@ -1,0 +1,12 @@
+'use strict';
+const express = require('express');
+const ctrl = require('../controllers/timetableConfigController');
+const { authenticate } = require('../middleware/authenticate');
+const { requirePermission } = require('../middleware/authorize');
+const router = express.Router();
+router.use(authenticate);
+const P = requirePermission('timetable.format.manage');
+router.post('/formats', P, ctrl.create);
+router.post('/formats/build', P, ctrl.buildFull);
+router.get('/formats/active', P, ctrl.getActive);
+module.exports = router;

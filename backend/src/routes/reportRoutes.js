@@ -1,0 +1,12 @@
+'use strict';
+const express = require('express');
+const ctrl = require('../controllers/reportController');
+const { authenticate } = require('../middleware/authenticate');
+const { requirePermission } = require('../middleware/authorize');
+const router = express.Router();
+router.use(authenticate);
+const P = requirePermission('report.view');
+router.get('/trainer-workload', P, ctrl.trainerWorkload);
+router.get('/module-coverage', P, ctrl.moduleCoverage);
+router.get('/room-utilization', P, ctrl.roomUtilization);
+module.exports = router;
