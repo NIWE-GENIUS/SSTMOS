@@ -1,0 +1,11 @@
+{
+  "remoteName": "origin",
+  "projects": [
+    {
+      "id": "prj_CirJbsK1gtAd6XkTUzpv8dik534b",
+      "name": "sstmos",
+      "directory": "frontend",
+      "orgId": "team_nNREjPFLgNkWgkoQ7BAcrO6Q"
+    }
+  ]
+}

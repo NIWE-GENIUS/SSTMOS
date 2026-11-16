@@ -1,4 +1,6 @@
+// backend/src/config/db.js
 'use strict';
+
 const { Pool } = require('pg');
 const env = require('./env');
 
@@ -11,6 +13,7 @@ const pool = new Pool({
     max: env.db.poolMax,
     idleTimeoutMillis: env.db.idleTimeoutMs,
     connectionTimeoutMillis: 5000,
+    ssl: { rejectUnauthorized: false },
 });
 
 const authPool = env.db.authUser
@@ -23,6 +26,7 @@ const authPool = env.db.authUser
           max: 5,
           idleTimeoutMillis: env.db.idleTimeoutMs,
           connectionTimeoutMillis: 5000,
+          ssl: { rejectUnauthorized: false },
       })
     : null;
 
@@ -49,7 +53,7 @@ async function withTenantContext(context, fn) {
 
 async function rawQuery(text, params) { return pool.query(text, params); }
 async function authQuery(text, params) {
-    if (!authPool) throw new Error('Auth pool not configured — set DB_AUTH_USER and DB_AUTH_PASSWORD');
+    if (!authPool) throw new Error('Auth pool not configured');
     return authPool.query(text, params);
 }
 async function shutdown() {

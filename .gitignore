@@ -27,3 +27,9 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+# Database dumps (never commit)
+*.dump
+sstmos_backup.dump
+
+# Git lock
+*.lock
