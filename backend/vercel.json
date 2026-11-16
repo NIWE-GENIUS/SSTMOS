@@ -4,9 +4,7 @@
     {
       "src": "src/server.js",
       "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["src/**/*.js"]
-      }
+      "config": { "includeFiles": ["src/**/*.js"] }
     }
   ],
   "routes": [

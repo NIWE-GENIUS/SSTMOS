@@ -16,7 +16,9 @@ const logger = require('./utils/logger');
 const app = express();
 
 app.set('trust proxy', 1);
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+}));
 app.use(cors({
     origin: env.security.corsOrigin.split(',').map((s) => s.trim()),
     credentials: true,
@@ -39,6 +41,18 @@ if (env.security.rateLimitEnabled) {
     }));
 }
 
+// --- Root route (fixes "No route for GET /") ---
+app.get('/', (req, res) => {
+    res.json({
+        service: 'SSTMOS backend',
+        status: 'ok',
+        version: '1.0',
+        documentation: '/health',
+        api: '/api/v1',
+    });
+});
+
+// --- Health check ---
 app.get('/health', (req, res) => {
     res.json({
         status: 'ok',
@@ -48,6 +62,7 @@ app.get('/health', (req, res) => {
     });
 });
 
+// --- API Router ---
 const apiRouter = express.Router();
 
 const routeModules = [
@@ -59,6 +74,7 @@ const routeModules = [
     ['/rooms',            './routes/roomRoutes'],
     ['/trainers',         './routes/trainerRoutes'],
     ['/modules',          './routes/moduleRoutes'],
+    ['/class-teachers',   './routes/classTeacherRoutes'],
     ['/timetable-config', './routes/timetableConfigRoutes'],
     ['/generation',       './routes/generationRoutes'],
     ['/timetable',        './routes/timetableRoutes'],
@@ -67,19 +83,31 @@ const routeModules = [
 ];
 
 const missingRoutes = [];
+const loadedRoutes = [];
 
 for (const [mount, path] of routeModules) {
     try {
         const mod = require(path);
         apiRouter.use(mount, mod);
+        loadedRoutes.push(mount);
     } catch (err) {
         if (err.code === 'MODULE_NOT_FOUND' && err.message.includes(path.replace('./', ''))) {
-            missingRoutes.push({ mount, path, reason: 'file missing' });
+            missingRoutes.push({ mount, path });
         } else {
-            throw err;
+            // Real error in the module — log but don't crash the whole server
+            logger.error(`Route load failed: ${mount}`, { message: err.message, stack: err.stack });
+            missingRoutes.push({ mount, path, reason: err.message });
         }
     }
 }
+
+apiRouter.get('/', (req, res) => {
+    res.json({
+        message: 'SSTMOS API v1',
+        routes: loadedRoutes,
+        missing: missingRoutes.map((m) => m.mount),
+    });
+});
 
 app.use('/api/v1', apiRouter);
 
@@ -94,7 +122,7 @@ app.use(errorHandler);
 
 logger.info('Express app initialized', {
     env: env.nodeEnv,
-    mountedRoutes: routeModules.length - missingRoutes.length,
+    mountedRoutes: loadedRoutes.length,
     missingRoutes: missingRoutes.length,
 });
 
