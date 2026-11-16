@@ -27,6 +27,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+.vercel/
 # Database dumps (never commit)
 *.dump
 sstmos_backup.dump
