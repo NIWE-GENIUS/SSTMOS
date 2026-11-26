@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /platform/
+Disallow: /dos/
+Disallow: /ht/
+Disallow: /trainer/
+Disallow: /student/
+
+Sitemap: https://sstmos.vercel.app/sitemap.xml
