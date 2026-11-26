@@ -9,7 +9,6 @@ const { requirePermission } = require('../middleware/authorize');
 
 const router = express.Router();
 
-// Aggressive rate limit on public submissions (5 per hour per IP)
 const contactLimiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     max: 5,

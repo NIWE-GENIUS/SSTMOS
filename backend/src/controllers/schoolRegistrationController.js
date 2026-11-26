@@ -1,4 +1,6 @@
+// backend/src/controllers/schoolRegistrationController.js
 'use strict';
+
 const service = require('../services/schoolRegistrationService');
 
 async function submit(req, res, next) {
@@ -24,12 +26,11 @@ async function getOne(req, res, next) {
 
 async function approve(req, res, next) {
     try {
-        const result = await service.approveRequest({
+        res.json(await service.approveRequest({
             requestId: req.params.id,
             adminUserId: req.user.id,
             adminOverrides: req.body || {},
-        });
-        res.json(result);
+        }));
     } catch (err) { next(err); }
 }
 

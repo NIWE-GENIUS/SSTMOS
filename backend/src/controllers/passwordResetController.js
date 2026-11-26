@@ -1,9 +1,12 @@
+// backend/src/controllers/passwordResetController.js
 'use strict';
+
 const service = require('../services/passwordResetService');
 
 async function requestReset(req, res, next) {
-    try { res.json(await service.requestReset({ email: (req.body || {}).email })); }
-    catch (err) { next(err); }
+    try {
+        res.json(await service.requestReset({ email: (req.body || {}).email }));
+    } catch (err) { next(err); }
 }
 
 async function validateToken(req, res, next) {

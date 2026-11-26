@@ -1,4 +1,6 @@
+// backend/src/routes/schoolRegistrationRoutes.js
 'use strict';
+
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const ctrl = require('../controllers/schoolRegistrationController');
@@ -7,7 +9,6 @@ const { requirePermission } = require('../middleware/authorize');
 
 const router = express.Router();
 
-// Public rate limit on registration submissions
 const submitLimiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     max: 3,

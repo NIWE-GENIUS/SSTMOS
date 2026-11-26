@@ -34,3 +34,7 @@ sstmos_backup.dump
 
 # Git lock
 *.lock
+backend/.env 
+backend/.env.local 
+frontend/.env 
+frontend/.env.local 
