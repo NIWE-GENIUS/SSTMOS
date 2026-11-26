@@ -8,16 +8,12 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 
-const schoolRegistrationRoutes = require('./routes/schoolRegistrationRoutes');
-
 const env = require('./config/env');
 const requestContext = require('./middleware/requestContext');
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
 
 const app = express();
-const contactRoutes = require('./routes/contactRoutes');
-apiRouter.use('/contact', contactRoutes);
 
 app.set('trust proxy', 1);
 app.use(helmet({
@@ -45,7 +41,7 @@ if (env.security.rateLimitEnabled) {
     }));
 }
 
-// --- Root route (fixes "No route for GET /") ---
+// --- Root route ---
 app.get('/', (req, res) => {
     res.json({
         service: 'SSTMOS backend',
@@ -70,22 +66,22 @@ app.get('/health', (req, res) => {
 const apiRouter = express.Router();
 
 const routeModules = [
-    ['/auth',             './routes/authRoutes'],
-    ['/schools',          './routes/schoolRoutes'],
-    ['/dashboard',        './routes/dashboardRoutes'],
-    ['/school',           './routes/userRoutes'],
-    ['/academic',         './routes/academicRoutes'],
-    ['/rooms',            './routes/roomRoutes'],
-    ['/trainers',         './routes/trainerRoutes'],
-    ['/modules',          './routes/moduleRoutes'],
-    ['/class-teachers',   './routes/classTeacherRoutes'],
-    ['/timetable-config', './routes/timetableConfigRoutes'],
-    ['/generation',       './routes/generationRoutes'],
-    ['/timetable',        './routes/timetableRoutes'],
-    ['/reports',          './routes/reportRoutes'],
-    ['/notifications',    './routes/notificationRoutes'],
-    ['/contact', './routes/contactRoutes'],
-    ['/school-registrations', './routes/schoolRegistrationRoutes'],
+    ['/auth',                  './routes/authRoutes'],
+    ['/schools',               './routes/schoolRoutes'],
+    ['/dashboard',             './routes/dashboardRoutes'],
+    ['/school',                './routes/userRoutes'],
+    ['/academic',              './routes/academicRoutes'],
+    ['/rooms',                 './routes/roomRoutes'],
+    ['/trainers',              './routes/trainerRoutes'],
+    ['/modules',               './routes/moduleRoutes'],
+    ['/class-teachers',        './routes/classTeacherRoutes'],
+    ['/timetable-config',      './routes/timetableConfigRoutes'],
+    ['/generation',            './routes/generationRoutes'],
+    ['/timetable',             './routes/timetableRoutes'],
+    ['/reports',               './routes/reportRoutes'],
+    ['/notifications',         './routes/notificationRoutes'],
+    ['/contact',               './routes/contactRoutes'],
+    ['/school-registrations',  './routes/schoolRegistrationRoutes'],
 ];
 
 const missingRoutes = [];
@@ -100,7 +96,6 @@ for (const [mount, path] of routeModules) {
         if (err.code === 'MODULE_NOT_FOUND' && err.message.includes(path.replace('./', ''))) {
             missingRoutes.push({ mount, path });
         } else {
-            // Real error in the module — log but don't crash the whole server
             logger.error(`Route load failed: ${mount}`, { message: err.message, stack: err.stack });
             missingRoutes.push({ mount, path, reason: err.message });
         }
