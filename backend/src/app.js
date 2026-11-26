@@ -82,6 +82,10 @@ const routeModules = [
     ['/notifications',         './routes/notificationRoutes'],
     ['/contact',               './routes/contactRoutes'],
     ['/school-registrations',  './routes/schoolRegistrationRoutes'],
+
+        ['/students',      './routes/studentsRoutes'],
+    ['/marks',         './routes/marksRoutes'],
+    ['/report-cards',  './routes/reportCardRoutes'],
 ];
 
 const missingRoutes = [];
