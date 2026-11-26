@@ -28,4 +28,11 @@ router.post('/logout',   authController.logout);
 router.get('/me',        authenticate, authController.me);
 router.post('/password/change', authenticate, authController.changePassword);
 
+const passwordResetCtrl = require('../controllers/passwordResetController');
+
+// Password reset routes (public)
+router.post('/password-reset/request',  passwordResetCtrl.requestReset);
+router.get('/password-reset/validate',  passwordResetCtrl.validateToken);
+router.post('/password-reset/complete', passwordResetCtrl.completeReset);
+
 module.exports = router;

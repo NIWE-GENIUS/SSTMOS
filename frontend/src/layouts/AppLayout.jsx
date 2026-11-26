@@ -8,6 +8,8 @@ const NAV_BY_ROLE = {
     { to: '/platform/schools', label: 'Schools' },
     { to: '/platform/agreements', label: 'Agreements' },
     { to: '/platform/activity', label: 'Activity' },
+    { to: '/platform/contact', label: 'Contact Messages' },
+    { to: '/platform/registrations', label: 'Registrations' },
   ],
   dos: [
     { to: '/dos', label: 'Dashboard', end: true },

@@ -79,10 +79,16 @@ async function approveVersion(schoolId, actorId, versionId, decision, comments) 
         if (v.rows[0].status !== 'pending_approval') throw new Conflict('Version is not pending approval');
 
         const newStatus = decision === 'approved' ? 'approved' : 'draft';
+        
+        // FIX: Explicit type casting for $1
         await client.query(
-            `UPDATE timetable_versions SET status = $1, approved_at = CASE WHEN $1 = 'approved' THEN now() ELSE NULL END WHERE id = $2`,
+            `UPDATE timetable_versions 
+             SET status = $1::timetable_status, 
+                 approved_at = CASE WHEN $1::text = 'approved' THEN now() ELSE NULL END 
+             WHERE id = $2`,
             [newStatus, versionId]
         );
+        
         await client.query(
             `INSERT INTO timetable_approvals (school_id, timetable_version_id, approver_id, decision, comments) VALUES ($1, $2, $3, $4, $5)`,
             [schoolId, versionId, actorId, decision, comments || null]

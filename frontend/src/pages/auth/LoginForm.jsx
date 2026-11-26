@@ -70,7 +70,7 @@ export default function LoginForm() {
         <div>
           <div className="flex items-center justify-between mb-1">
             <label htmlFor="password" className="label !mb-0">Password</label>
-            <a href="#" className="text-xs text-blue-700 hover:underline">Forgot?</a>
+            <Link to="/forgot-password" className="text-xs text-blue-700 hover:underline">Forgot?</Link>
           </div>
           <div className="relative">
             <input
@@ -110,6 +110,9 @@ export default function LoginForm() {
         >
           {submitting ? 'Signing in…' : 'Sign in'}
         </button>
+        <div className="mt-6 text-center text-sm text-gray-600">
+    Don't have an account? <Link to="/signup" className="text-blue-700 font-medium hover:underline">Register your school</Link>
+</div>
       </form>
 
       <div className="mt-8 pt-6 border-t border-gray-200 text-center text-xs text-gray-500">

@@ -11,12 +11,18 @@ import ContactPage from './pages/ContactPage';
 import LegalPage from './pages/LegalPage';
 import LoginPage from './pages/auth/LoginPage';
 
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
+import ResetPasswordPage from './pages/auth/ResetPasswordPage';
+import SignUpPage from './pages/auth/SignUpPage';
 // Platform admin
 import PlatformDashboard from './pages/platform/PlatformDashboard';
 import SchoolsListPage from './pages/platform/SchoolsListPage';
 import SchoolDetailPage from './pages/platform/SchoolDetailPage';
 import AgreementsPage from './pages/platform/AgreementsPage';
 import ActivityPage from './pages/platform/ActivityPage';
+import ContactMessagesPage from './pages/platform/ContactMessagesPage';
+
+import SchoolRegistrationsPage from './pages/platform/SchoolRegistrationsPage';
 
 // DOS
 import DosDashboard from './pages/dos/DosDashboard';
@@ -24,12 +30,12 @@ import AcademicPage from './pages/dos/AcademicPage';
 import TimetableConfigPage from './pages/dos/TimetableConfigPage';
 import RoomsPage from './pages/dos/RoomsPage';
 import TrainersPage from './pages/dos/TrainersPage';
+import ClassTeacherPage from './pages/dos/ClassTeacherPage';
 import ModulesPage from './pages/dos/ModulesPage';
 import GeneratePage from './pages/dos/GeneratePage';
 import TimetablePage from './pages/dos/TimetablePage';
 import ReportsPage from './pages/dos/ReportsPage';
 import UsersPage from './pages/dos/UsersPage';
-import ClassTeacherPage from './pages/dos/ClassTeacherPage'; // <-- NEW IMPORT
 
 // Head teacher / deputy
 import HtDashboard from './pages/ht/HtDashboard';
@@ -56,6 +62,9 @@ function AppRoutes() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/go" element={<RootRedirect />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+<Route path="/reset-password" element={<ResetPasswordPage />} />
+<Route path="/signup" element={<SignUpPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/privacy" element={<LegalPage type="privacy" />} />
       <Route path="/terms" element={<LegalPage type="terms" />} />
@@ -69,6 +78,8 @@ function AppRoutes() {
         <Route path="/platform/schools/:id" element={<RoleRoute roles={['platform_admin']}><SchoolDetailPage /></RoleRoute>} />
         <Route path="/platform/agreements" element={<RoleRoute roles={['platform_admin']}><AgreementsPage /></RoleRoute>} />
         <Route path="/platform/activity" element={<RoleRoute roles={['platform_admin']}><ActivityPage /></RoleRoute>} />
+        <Route path="/platform/contact" element={<RoleRoute roles={['platform_admin']}><ContactMessagesPage /></RoleRoute>} />
+        <Route path="/platform/registrations" element={<RoleRoute roles={['platform_admin']}><SchoolRegistrationsPage /></RoleRoute>} />
 
         {/* DOS */}
         <Route path="/dos" element={<RoleRoute roles={['dos']}><DosDashboard /></RoleRoute>} />
@@ -76,7 +87,7 @@ function AppRoutes() {
         <Route path="/dos/timetable-config" element={<RoleRoute roles={['dos']}><TimetableConfigPage /></RoleRoute>} />
         <Route path="/dos/rooms" element={<RoleRoute roles={['dos']}><RoomsPage /></RoleRoute>} />
         <Route path="/dos/trainers" element={<RoleRoute roles={['dos']}><TrainersPage /></RoleRoute>} />
-        <Route path="/dos/class-teachers" element={<RoleRoute roles={['dos']}><ClassTeacherPage /></RoleRoute>} /> {/* <-- NEW ROUTE */}
+        <Route path="/dos/class-teachers" element={<RoleRoute roles={['dos']}><ClassTeacherPage /></RoleRoute>} />
         <Route path="/dos/modules" element={<RoleRoute roles={['dos']}><ModulesPage /></RoleRoute>} />
         <Route path="/dos/generate" element={<RoleRoute roles={['dos']}><GeneratePage /></RoleRoute>} />
         <Route path="/dos/timetable" element={<RoleRoute roles={['dos']}><TimetablePage /></RoleRoute>} />

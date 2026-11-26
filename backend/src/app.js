@@ -8,12 +8,16 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 
+const schoolRegistrationRoutes = require('./routes/schoolRegistrationRoutes');
+
 const env = require('./config/env');
 const requestContext = require('./middleware/requestContext');
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
 const logger = require('./utils/logger');
 
 const app = express();
+const contactRoutes = require('./routes/contactRoutes');
+apiRouter.use('/contact', contactRoutes);
 
 app.set('trust proxy', 1);
 app.use(helmet({
@@ -80,6 +84,8 @@ const routeModules = [
     ['/timetable',        './routes/timetableRoutes'],
     ['/reports',          './routes/reportRoutes'],
     ['/notifications',    './routes/notificationRoutes'],
+    ['/contact', './routes/contactRoutes'],
+    ['/school-registrations', './routes/schoolRegistrationRoutes'],
 ];
 
 const missingRoutes = [];
