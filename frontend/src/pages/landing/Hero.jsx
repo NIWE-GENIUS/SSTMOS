@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 
 export default function Hero() {
   return (
-    <section className="bg-blue-700 text-white relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
+    <section className="bg-blue-700 dark:bg-slate-900 text-white relative overflow-hidden transition-colors">
+      {/* Background pattern — brighter in dark mode */}
+      <div className="absolute inset-0 opacity-10 dark:opacity-5 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-white blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-blue-300 blur-3xl" />
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 py-24 sm:py-32 text-center">
-        <span className="inline-block px-4 py-1.5 text-xs font-semibold text-blue-100 bg-blue-600/50 rounded-full mb-8 uppercase tracking-wider border border-blue-400/30">
+        <span className="inline-block px-4 py-1.5 text-xs font-semibold text-blue-100 bg-blue-600/50 dark:bg-blue-900/50 rounded-full mb-8 uppercase tracking-wider border border-blue-400/30 dark:border-blue-700/50">
           Built for technical & vocational schools
         </span>
 
@@ -22,7 +22,7 @@ export default function Hero() {
           <span className="text-yellow-300">Optimization</span>
         </h1>
 
-        <p className="mt-8 text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+        <p className="mt-8 text-lg sm:text-xl text-blue-100 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
           Automatically generate <strong className="text-white font-semibold">conflict-free timetables</strong> for your school.
           Multi-tenant, secure, and built to handle the <strong className="text-white font-semibold">real complexity</strong> of technical education.
         </p>
@@ -30,7 +30,7 @@ export default function Hero() {
         <div className="mt-12 flex flex-col sm:flex-row justify-center gap-3">
           <Link
             to="/login"
-            className="inline-flex items-center justify-center rounded-md px-8 py-3 bg-white text-blue-700 font-semibold text-base hover:bg-blue-50 transition-colors shadow-lg"
+            className="inline-flex items-center justify-center rounded-md px-8 py-3 bg-white text-blue-700 font-semibold text-base hover:bg-blue-50 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white transition-colors shadow-lg"
           >
             Sign in to your school
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,13 +39,13 @@ export default function Hero() {
           </Link>
           <a
             href="#how-it-works"
-            className="inline-flex items-center justify-center rounded-md px-8 py-3 bg-blue-600/40 text-white font-semibold text-base hover:bg-blue-600/60 transition-colors border border-blue-400/40"
+            className="inline-flex items-center justify-center rounded-md px-8 py-3 bg-blue-600/40 dark:bg-slate-800/60 text-white font-semibold text-base hover:bg-blue-600/60 dark:hover:bg-slate-700/80 transition-colors border border-blue-400/40 dark:border-slate-700/60"
           >
             See how it works
           </a>
         </div>
 
-        <p className="mt-8 text-xs text-blue-200">
+        <p className="mt-8 text-xs text-blue-200 dark:text-slate-400">
           No credit card required · Free 1-month trial for qualifying schools
         </p>
       </div>

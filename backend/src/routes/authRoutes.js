@@ -6,6 +6,7 @@ const rateLimit = require('express-rate-limit');
 const authController = require('../controllers/authController');
 const { authenticate } = require('../middleware/authenticate');
 
+const passwordResetCtrl = require('../controllers/passwordResetController');
 const router = express.Router();
 
 // Stricter rate limit on login (anti brute-force)

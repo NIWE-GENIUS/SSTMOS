@@ -1,4 +1,6 @@
 // src/App.jsx
+import { ThemeProvider } from './context/ThemeContext';
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth, homeForRole } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -116,9 +118,11 @@ function AppRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

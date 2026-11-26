@@ -4,7 +4,10 @@
 
 @layer base {
   html, body, #root { height: 100%; }
-  body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply bg-white dark:bg-slate-950 text-gray-900 dark:text-slate-100 transition-colors;
+  }
 }
 
 @layer components {
